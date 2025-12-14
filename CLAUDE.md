@@ -10,38 +10,86 @@ Menu application with separate backend and user-facing frontend.
 
 ```
 menu_app/
-├── backend/          # Rails 7.1 API backend
+├── backend/          # Rails 7.2 API backend (Docker)
 └── user_frontend/    # Next.js frontend (port 3001)
 ```
 
-## Backend (Rails 7.1 API)
+## Backend (Rails 7.2 API)
 
-**Technology:** Rails 7.1 in API mode with SQLite3
+**Technology:** Rails 7.2 in API mode with PostgreSQL 16 (Docker)
 
 **Port:** 3000
+
+### Docker Setup
+
+The backend runs in Docker with PostgreSQL. All commands should be run from the `backend/` directory.
 
 ### Development Commands
 
 ```bash
 cd backend
 
-# Start server
-rails server -p 3000
+# Start all services (Rails + PostgreSQL)
+docker compose up
 
-# Database
-rails db:create
-rails db:migrate
-rails db:rollback
-rails db:reset
+# Stop services
+docker compose down
 
-# Generate model
-rails generate model ModelName field:type
+# Build/rebuild Docker image
+docker compose build
 
-# Generate controller
-rails generate controller Namespace::ControllerName
+# Run commands in container
+docker compose run --rm api <command>
 
-# Console
-rails console
+# Examples:
+# - Database operations
+docker compose run --rm api rails db:create
+docker compose run --rm api rails db:migrate
+docker compose run --rm api rails db:rollback
+docker compose run --rm api rails db:reset
+
+# - Generate model
+docker compose run --rm api rails generate model ModelName field:type
+
+# - Generate controller
+docker compose run --rm api rails generate controller Namespace::ControllerName
+
+# - Rails console
+docker compose run --rm api rails console
+
+# - Bash shell in container
+docker compose run --rm api bash
+
+# View logs
+docker compose logs -f api
+```
+
+### Initial Setup
+
+If starting from scratch:
+
+```bash
+cd backend
+
+# 1. Build Docker image
+docker compose build
+
+# 2. Generate Rails app (if not already done)
+docker compose run --rm api rails new . --api -T --database=postgresql --force
+
+# 3. Add rack-cors to Gemfile (already done)
+
+# 4. Bundle install
+docker compose run --rm api bundle install
+
+# 5. Create database
+docker compose run --rm api rails db:create
+
+# 6. Run migrations
+docker compose run --rm api rails db:migrate
+
+# 7. Start server
+docker compose up
 ```
 
 ### API Structure
