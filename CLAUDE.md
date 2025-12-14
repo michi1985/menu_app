@@ -108,6 +108,79 @@ docker compose up
 
 ## Frontend (Next.js)
 
+**Technology:** Next.js with TypeScript, Pages Router, Tailwind CSS
+
 **Port:** 3001
 
-To be configured.
+### Development Commands
+
+```bash
+cd user_frontend
+
+# Start development server
+npm run dev -- -p 3001
+
+# Build for production
+npm run build
+
+# Start production server
+npm start -- -p 3001
+
+# Lint
+npm run lint
+```
+
+### Initial Setup
+
+If starting from scratch:
+
+```bash
+cd user_frontend
+
+# 1. Create Next.js app
+npx create-next-app@latest . --typescript --tailwind --eslint --no-app --src-dir --import-alias "@/*"
+
+# 2. Create directory structure
+mkdir -p src/types src/components src/pages/menus
+
+# 3. Create necessary files (see file structure below)
+
+# 4. Install dependencies
+npm install
+
+# 5. Start development server
+npm run dev -- -p 3001
+```
+
+### File Structure
+
+```
+src/
+├── components/
+│   ├── Layout.tsx       # Main layout component with header/footer
+│   └── MenuCard.tsx     # Menu item card component
+├── pages/
+│   ├── _app.tsx
+│   ├── index.tsx        # Home page
+│   └── menus/
+│       ├── index.tsx    # Menu list page (CSR with fetch)
+│       └── [id].tsx     # Menu detail page (CSR with fetch)
+└── types/
+    └── menu.ts          # TypeScript type definitions
+```
+
+### Environment Variables
+
+Create `.env.local` in the `user_frontend/` directory:
+
+```
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
+```
+
+### Pages
+
+- `/` - Home page
+- `/menus` - Menu list (fetches from `/api/v1/menus`)
+- `/menus/[id]` - Menu detail (fetches from `/api/v1/menus/:id`)
+
+All pages use CSR (Client-Side Rendering) with `useEffect` + `fetch`.
