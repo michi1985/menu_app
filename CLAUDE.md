@@ -11,7 +11,8 @@ Menu application with separate backend and user-facing frontend.
 ```
 menu_app/
 ├── backend/          # Rails 7.2 API backend (Docker)
-└── user_frontend/    # Next.js frontend (port 3001)
+├── user_frontend/    # Next.js user-facing frontend (port 3001)
+└── admin_frontend/   # Nuxt 3 admin panel (port 3002)
 ```
 
 ## Backend (Rails 7.2 API)
@@ -184,3 +185,107 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
 - `/menus/[id]` - Menu detail (fetches from `/api/v1/menus/:id`)
 
 All pages use CSR (Client-Side Rendering) with `useEffect` + `fetch`.
+
+## Admin Frontend (Nuxt 3)
+
+**Technology:** Nuxt 3 with TypeScript, Tailwind CSS
+
+**Port:** 3002
+
+**Purpose:** Admin panel for managing menus (CRUD operations)
+
+### Development Commands
+
+```bash
+cd admin_frontend
+
+# Start development server
+npm run dev -- --port 3002
+# Or if configured in package.json:
+npm run dev
+
+# Build for production
+npm run build
+
+# Generate static site
+npm run generate
+
+# Preview production build
+npm run preview
+
+# Lint
+npm run lint
+```
+
+### Initial Setup
+
+If starting from scratch:
+
+```bash
+cd admin_frontend
+
+# 1. Create Nuxt 3 app
+npx nuxi init .
+
+# 2. Install dependencies
+npm install
+
+# 3. Add Tailwind CSS
+npm install -D @nuxtjs/tailwindcss
+npx tailwindcss init
+
+# 4. Create directory structure
+mkdir -p types composables components pages/admin/menus
+
+# 5. Create necessary files (see file structure below)
+
+# 6. Start development server
+npm run dev -- --port 3002
+```
+
+### File Structure
+
+```
+admin_frontend/
+├── .env                         # Environment variables
+├── nuxt.config.ts              # Nuxt configuration
+├── app.vue                     # Root component
+├── types/
+│   └── menu.ts                 # TypeScript type definitions
+├── composables/
+│   └── useMenuApi.ts           # API call composable (CRUD operations)
+├── components/
+│   └── MenuForm.vue            # Reusable form component
+└── pages/
+    ├── index.vue               # Landing page
+    └── admin/
+        └── menus/
+            ├── index.vue       # Menu list with edit/delete actions
+            ├── new.vue         # Create new menu
+            └── [id]/
+                └── edit.vue    # Edit existing menu
+```
+
+### Environment Variables
+
+Create `.env` in the `admin_frontend/` directory:
+
+```
+NUXT_PUBLIC_API_BASE_URL=http://localhost:3000
+```
+
+### Pages
+
+- `/` - Landing page
+- `/admin/menus` - Menu list with table view (CRUD operations)
+- `/admin/menus/new` - Create new menu form
+- `/admin/menus/[id]/edit` - Edit menu form
+
+### Key Features
+
+- **Full CRUD**: Create, Read, Update, Delete menus
+- **API Integration**: Uses `$fetch` and `useAsyncData` to communicate with Rails API
+- **Form Validation**: Required fields and validation
+- **Responsive Design**: Tailwind CSS styling
+- **Error Handling**: User-friendly error messages
+- **Confirmation Dialogs**: Confirm before deleting items
