@@ -1,0 +1,8 @@
+{
+  "folders": [
+    { "path": "./backend" },
+    { "path": "./user_frontend" },
+    { "path": "./admin_frontend" }
+  ],
+  "settings": {}
+}
