@@ -4,5 +4,7 @@
     { "path": "./user_frontend" },
     { "path": "./admin_frontend" }
   ],
-  "settings": {}
+  "settings": {
+    "git.openRepositoryInParentFolders": "always"
+  }
 }
