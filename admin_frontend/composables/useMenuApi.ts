@@ -23,23 +23,26 @@ export const useMenuApi = () => {
       body: {
         menu: {
           ...menuData,
-          price: Number(menuData.price)
-        }
-      }
+          price: Number(menuData.price),
+        },
+      },
     })
     return data
   }
 
   // メニューを更新
-  const updateMenu = async (id: number, menuData: MenuFormData): Promise<Menu> => {
+  const updateMenu = async (
+    id: number,
+    menuData: MenuFormData
+  ): Promise<Menu> => {
     const data = await $fetch<Menu>(`${baseUrl}/api/v1/menus/${id}`, {
       method: 'PUT',
       body: {
         menu: {
           ...menuData,
-          price: Number(menuData.price)
-        }
-      }
+          price: Number(menuData.price),
+        },
+      },
     })
     return data
   }
@@ -47,7 +50,7 @@ export const useMenuApi = () => {
   // メニューを削除
   const deleteMenu = async (id: number): Promise<void> => {
     await $fetch(`${baseUrl}/api/v1/menus/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     })
   }
 
@@ -56,6 +59,6 @@ export const useMenuApi = () => {
     fetchMenu,
     createMenu,
     updateMenu,
-    deleteMenu
+    deleteMenu,
   }
 }

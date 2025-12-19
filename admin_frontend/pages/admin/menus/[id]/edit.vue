@@ -12,11 +12,16 @@
       </div>
 
       <div v-if="pending" class="text-center py-12">
-        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div
+          class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"
+        ></div>
         <p class="mt-4 text-gray-600">読み込み中...</p>
       </div>
 
-      <div v-else-if="error" class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md">
+      <div
+        v-else-if="error"
+        class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md"
+      >
         <p class="font-medium">エラー</p>
         <p class="text-sm">{{ error.message }}</p>
       </div>
@@ -28,7 +33,10 @@
         @submit="handleSubmit"
       />
 
-      <div v-if="updateError" class="mt-4 max-w-2xl mx-auto bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md">
+      <div
+        v-if="updateError"
+        class="mt-4 max-w-2xl mx-auto bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md"
+      >
         <p class="font-medium">エラー</p>
         <p class="text-sm">{{ updateError }}</p>
       </div>
@@ -45,10 +53,11 @@ const { fetchMenu, updateMenu } = useMenuApi()
 
 const id = computed(() => Number(route.params.id))
 
-const { data: menu, pending, error } = await useAsyncData<Menu>(
-  `menu-${id.value}`,
-  () => fetchMenu(id.value)
-)
+const {
+  data: menu,
+  pending,
+  error,
+} = await useAsyncData<Menu>(`menu-${id.value}`, () => fetchMenu(id.value))
 
 const formData = computed<MenuFormData | undefined>(() => {
   if (!menu.value) return undefined
@@ -57,7 +66,7 @@ const formData = computed<MenuFormData | undefined>(() => {
     price: menu.value.price,
     category: menu.value.category,
     description: menu.value.description,
-    is_published: menu.value.is_published
+    is_published: menu.value.is_published,
   }
 })
 
@@ -70,7 +79,8 @@ const handleSubmit = async (formData: MenuFormData) => {
     await updateMenu(id.value, formData)
     await router.push('/admin/menus')
   } catch (err) {
-    updateError.value = err instanceof Error ? err.message : 'メニューの更新に失敗しました'
+    updateError.value =
+      err instanceof Error ? err.message : 'メニューの更新に失敗しました'
   }
 }
 </script>

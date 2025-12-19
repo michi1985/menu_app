@@ -12,11 +12,16 @@
       </div>
 
       <div v-if="pending" class="text-center py-12">
-        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div
+          class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"
+        ></div>
         <p class="mt-4 text-gray-600">読み込み中...</p>
       </div>
 
-      <div v-else-if="error" class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md">
+      <div
+        v-else-if="error"
+        class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md"
+      >
         <p class="font-medium">エラー</p>
         <p class="text-sm">{{ error.message }}</p>
       </div>
@@ -29,22 +34,34 @@
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 ID
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 メニュー名
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 価格
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 カテゴリー
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 公開状態
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 操作
               </th>
             </tr>
@@ -54,7 +71,9 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                 {{ menu.id }}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+              >
                 {{ menu.name }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -69,13 +88,15 @@
                     'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
                     menu.is_published
                       ? 'bg-green-100 text-green-800'
-                      : 'bg-gray-100 text-gray-800'
+                      : 'bg-gray-100 text-gray-800',
                   ]"
                 >
                   {{ menu.is_published ? '公開中' : '非公開' }}
                 </span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2"
+              >
                 <NuxtLink
                   :to="`/admin/menus/${menu.id}/edit`"
                   class="text-blue-600 hover:text-blue-900"
@@ -94,7 +115,10 @@
         </table>
       </div>
 
-      <div v-if="deleteError" class="mt-4 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md">
+      <div
+        v-if="deleteError"
+        class="mt-4 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md"
+      >
         <p class="font-medium">削除エラー</p>
         <p class="text-sm">{{ deleteError }}</p>
       </div>
@@ -107,10 +131,12 @@ import type { Menu } from '~/types/menu'
 
 const { fetchMenus, deleteMenu } = useMenuApi()
 
-const { data: menus, pending, error, refresh } = await useAsyncData<Menu[]>(
-  'menus',
-  () => fetchMenus()
-)
+const {
+  data: menus,
+  pending,
+  error,
+  refresh,
+} = await useAsyncData<Menu[]>('menus', () => fetchMenus())
 
 const deleteError = ref<string | null>(null)
 
@@ -125,7 +151,8 @@ const handleDelete = async (id: number, name: string) => {
     await deleteMenu(id)
     await refresh()
   } catch (err) {
-    deleteError.value = err instanceof Error ? err.message : '削除に失敗しました'
+    deleteError.value =
+      err instanceof Error ? err.message : '削除に失敗しました'
   }
 }
 </script>

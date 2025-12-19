@@ -11,12 +11,12 @@
         <h1 class="text-3xl font-bold text-gray-900">メニュー新規作成</h1>
       </div>
 
-      <MenuForm
-        submit-label="作成"
-        @submit="handleSubmit"
-      />
+      <MenuForm submit-label="作成" @submit="handleSubmit" />
 
-      <div v-if="error" class="mt-4 max-w-2xl mx-auto bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md">
+      <div
+        v-if="error"
+        class="mt-4 max-w-2xl mx-auto bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md"
+      >
         <p class="font-medium">エラー</p>
         <p class="text-sm">{{ error }}</p>
       </div>
@@ -39,7 +39,8 @@ const handleSubmit = async (formData: MenuFormData) => {
     await createMenu(formData)
     await router.push('/admin/menus')
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'メニューの作成に失敗しました'
+    error.value =
+      err instanceof Error ? err.message : 'メニューの作成に失敗しました'
   }
 }
 </script>

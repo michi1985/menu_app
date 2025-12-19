@@ -1,5 +1,8 @@
 <template>
-  <form class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md" @submit.prevent="handleSubmit">
+  <form
+    class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md"
+    @submit.prevent="handleSubmit"
+  >
     <div class="mb-6">
       <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
         メニュー名 <span class="text-red-500">*</span>
@@ -30,7 +33,10 @@
     </div>
 
     <div class="mb-6">
-      <label for="category" class="block text-sm font-medium text-gray-700 mb-2">
+      <label
+        for="category"
+        class="block text-sm font-medium text-gray-700 mb-2"
+      >
         カテゴリー <span class="text-red-500">*</span>
       </label>
       <input
@@ -44,7 +50,10 @@
     </div>
 
     <div class="mb-6">
-      <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+      <label
+        for="description"
+        class="block text-sm font-medium text-gray-700 mb-2"
+      >
         説明
       </label>
       <textarea
@@ -83,7 +92,10 @@
       </NuxtLink>
     </div>
 
-    <div v-if="error" class="mt-4 p-4 bg-red-50 border border-red-200 text-red-800 rounded-md">
+    <div
+      v-if="error"
+      class="mt-4 p-4 bg-red-50 border border-red-200 text-red-800 rounded-md"
+    >
       <p class="font-medium">エラー</p>
       <p class="text-sm">{{ error }}</p>
     </div>
@@ -99,7 +111,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  submitLabel: '保存'
+  submitLabel: '保存',
 })
 
 const emit = defineEmits<{
@@ -111,7 +123,7 @@ const formData = ref<MenuFormData>({
   price: props.initialData?.price || '',
   category: props.initialData?.category || '',
   description: props.initialData?.description || '',
-  is_published: props.initialData?.is_published || false
+  is_published: props.initialData?.is_published || false,
 })
 
 const loading = ref(false)
@@ -131,15 +143,19 @@ const handleSubmit = async () => {
 }
 
 // initialData が変更された場合にフォームを更新
-watch(() => props.initialData, (newData) => {
-  if (newData) {
-    formData.value = {
-      name: newData.name,
-      price: newData.price,
-      category: newData.category,
-      description: newData.description || '',
-      is_published: newData.is_published
+watch(
+  () => props.initialData,
+  (newData) => {
+    if (newData) {
+      formData.value = {
+        name: newData.name,
+        price: newData.price,
+        category: newData.category,
+        description: newData.description || '',
+        is_published: newData.is_published,
+      }
     }
-  }
-}, { deep: true })
+  },
+  { deep: true }
+)
 </script>
