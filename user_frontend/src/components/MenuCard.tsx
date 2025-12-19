@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import { Menu } from '@/types/menu';
 
 interface MenuCardProps {
