@@ -1,16 +1,17 @@
-import withNuxt from './.nuxt/eslint.config.mjs'
 import prettier from 'eslint-config-prettier/flat'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
+
+import withNuxt from './.nuxt/eslint.config.mjs'
 
 export default withNuxt(
-  // your custom flat configs go here, for example:
-  // {
-  //   files: ['**/*.ts', '**/*.tsx'],
-  //   rules: {
-  //     'no-console': 'off' // allow console.log in TypeScript files
-  //   }
-  // },
-  // {
-  //   ...
-  // }
+  {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+    },
+  },
   prettier
 )
