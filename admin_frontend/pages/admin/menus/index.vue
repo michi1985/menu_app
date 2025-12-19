@@ -83,8 +83,8 @@
                   編集
                 </NuxtLink>
                 <button
-                  @click="handleDelete(menu.id, menu.name)"
                   class="text-red-600 hover:text-red-900"
+                  @click="handleDelete(menu.id, menu.name)"
                 >
                   削除
                 </button>

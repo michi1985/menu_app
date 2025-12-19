@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+  <form class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md" @submit.prevent="handleSubmit">
     <div class="mb-6">
       <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
         メニュー名 <span class="text-red-500">*</span>
