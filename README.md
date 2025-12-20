@@ -3,4 +3,4 @@
 - メニューのCRUDアプリ
 - Claudeを使ってバックエンドをRails API、user_frontendをNext.js、admin_frontendをNuxt.jsで作成した
 - Cursorでmenu_appディレクトリを直接開くとディレクトリ直下でRubocopを実行してしまいエディタ上でエラーが出てしまうため、menu_app.code-workspaceを指定して開くこと。その場合menu_appディレクトリ直下の README.md や CLAUDE.md はエディタ上に表示されないので、menu_appディレクトリ直下のファイルの編集をしたい場合はmenu_appディレクトリを直接開いて編集する
-- テストコミットテスト
+- テストコミットテストテスト
