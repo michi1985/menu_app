@@ -7,9 +7,30 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Devise routes for User
+  devise_for :users, path: 'api/v1/users',
+             controllers: {
+               sessions: 'users/sessions',
+               registrations: 'users/registrations'
+             }
+
+  # Devise routes for AdminUser
+  devise_for :admin_users, path: 'api/v1/admin_users',
+             controllers: {
+               sessions: 'admin_users/sessions',
+               registrations: 'admin_users/registrations'
+             }
+
   namespace :api do
     namespace :v1 do
       resources :menus
+
+      # Current user endpoint
+      get 'me', to: 'users#me'
+
+      # Current admin user endpoint (optional)
+      get 'admin/me', to: 'admin_users#me'
     end
   end
 end
