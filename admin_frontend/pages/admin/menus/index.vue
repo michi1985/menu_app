@@ -97,18 +97,18 @@
               <td
                 class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2"
               >
-                <NuxtLink
+                <AppButton
+                  label="編集"
+                  variant="primary"
+                  size="sm"
                   :to="`/admin/menus/${menu.id}/edit`"
-                  class="text-blue-600 hover:text-blue-900"
-                >
-                  編集
-                </NuxtLink>
-                <button
-                  class="text-red-600 hover:text-red-900"
+                />
+                <AppButton
+                  label="削除"
+                  variant="danger"
+                  size="sm"
                   @click="handleDelete(menu.id, menu.name)"
-                >
-                  削除
-                </button>
+                />
               </td>
             </tr>
           </tbody>
